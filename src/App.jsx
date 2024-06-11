@@ -41,6 +41,7 @@ function App() {
           </div>
         );
       })}
+      <h3>ANOHTER TITLE UPDATED</h3>
       <button ref={refEl} className="btn" onClick={handleChangeTitle}>
         On change title
       </button>
