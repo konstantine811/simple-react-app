@@ -4,29 +4,29 @@ import * as Yup from "yup";
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string().required("Required"),
-  email: Yup.string().email("Invalid email").required("Required"),
+  // email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string().min(6, "Password too short").required("Required"),
 });
 
 const Login = () => {
-  const text =
-    "Contact us at info@example.com sdfsdf@gmai.com and consta@gmail.com  helo world hillel@gamil.com";
-  const emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.com\b/g;
-  const emails = text.match(emailPattern);
-  console.log(emails);
-  const pattern = new RegExp(/\s+/);
-  const text2 = "The cat is on the roof. dog";
-  const result = text2.split(pattern);
-  console.log("result finded:", result);
   return (
     <div className="grow flex justify-center items-center">
       <div className="p-10 bg-black/15 backdrop-blur-md rounded-lg shadow-lg">
         <h1 className="text-center text-3xl py-2">Login Form</h1>
         <Formik
-          initialValues={{ username: "", email: "", password: "" }}
+          initialValues={{ username: "", password: "" }}
           validationSchema={SignupSchema}
-          onSubmit={(values) => {
-            console.log("Form Data Submitted:", values);
+          onSubmit={async (values) => {
+            let response = await fetch("http://localhost:3000/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json;charset=utf-8",
+              },
+              body: JSON.stringify(values),
+            });
+            response.json().then((data) => {
+              console.log(data);
+            });
           }}
         >
           {({ touched, isValid }) => {
@@ -46,7 +46,7 @@ const Login = () => {
                     component="div"
                   />
                 </div>
-                <div>
+                {/*                 <div>
                   <Field
                     className="input input-solid"
                     type="email"
@@ -58,7 +58,7 @@ const Login = () => {
                     name="email"
                     component="div"
                   />
-                </div>
+                </div> */}
                 <div>
                   <Field
                     className="input input-solid"

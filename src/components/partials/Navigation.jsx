@@ -3,9 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 // configs
 import { NAV_ITEMS, NAV_PATHS } from "../../config/navigation.config";
 import { User } from "lucide-react";
+import { useSelector } from "react-redux";
 
 const Navigation = () => {
   let { pathname } = useLocation();
+  const counter = useSelector((state) => state.counter.value);
   return (
     <div className="border-b py-4">
       <nav className="container">
@@ -28,6 +30,7 @@ const Navigation = () => {
             })}
           </ul>
           <ul>
+            <li className="text-white">Counter: {counter}</li>
             <li>
               <Link to={NAV_PATHS.LOGIN}>
                 <User />
